@@ -6,17 +6,13 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
     public MyDeque(){
         data = (E[])new Object[10];
-        start = 0;
-        end = 9;
-        size = 10;
+        start=0;end=0;size=0;
     }
 
     @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity){
         data = (E[])new Object[initialCapacity];
-        start = 0;
-        end = initialCapacity - 1;
-        size = 0;
+        start=0;end=0;size=0;
     }
 
 
@@ -39,7 +35,8 @@ public class MyDeque<E>{
         if (end==data.length-1){
           resize();
         }
-        data[end+1] = element;
+        end++;
+        data[end] = element;
         size++;
     }
 
@@ -53,8 +50,8 @@ public class MyDeque<E>{
     public E removeLast(){
         E removed = data[end];
         data[end]=null;
-        end--;
-        size--;
+        end--;                      // REMOVE STILL REMOVES THE NULL AND MESSES UP THE START AND END ORDER
+        size--;                     // ASDHHASUBETUBASOBCOUEBHTUOABOSFBUEBIWHEBVUDBVHIJBSYEBIAEB
         return removed;
     }
 
@@ -69,7 +66,7 @@ public class MyDeque<E>{
 
     @SuppressWarnings("unchecked")
     private void resize(){
-      E[] d = (E[])new Object[size*2];
+      E[] d = (E[])new Object[data.length*2];
       data = d;
     }
 
