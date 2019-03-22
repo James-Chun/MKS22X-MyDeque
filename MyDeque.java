@@ -31,8 +31,8 @@ public class MyDeque<E>{
 
     //public void addFirst(E element){size++;}
 
-    public void addLast(E element){
-        if (end==data.length-1){
+    public void addLast(E element){     //move start back?!?!?!?!?!!???!?!?!?!?!?!?!?!?!?!!?!?!?!?
+        if (end==data.length-1){        //In Nathan We Trust
           resize();
         }
         end++;
