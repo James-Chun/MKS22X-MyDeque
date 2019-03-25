@@ -29,17 +29,23 @@ public class MyDeque<E>{
 
 
     public String toString(){
-        String visual = "{ ";
+        String visual = "{";
         for (int i=start; i<=end; i++){
-          visual = visual + data[i] + " ";
+          visual = visual + data[i];
+          if (start<end){
+            visual+=" ";
+          }
         }
         return visual + "}";
     }
 
     public String toStringDebug(){
-        String visual = "{ ";
+        String visual = "{";
         for (int i=start; i<data.length; i++){
-          visual = visual + data[i] + " ";
+          visual = visual + data[i];
+          if (start<data.length-1){
+            visual+=" ";
+          }
         }
         return visual + "}";
     }
@@ -47,13 +53,18 @@ public class MyDeque<E>{
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-    /*
-    public void addFirst(E element) throws new NullPointerException{
+  @SuppressWarnings("unchecked")
+    public void addFirst(E element) throws NullPointerException{
         if (element == null){
-            throw new NullPointerException("Specified Element Cannot Be Null")
+            throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        size++;
-    }*/
+        E[] d = (E[])new Object[data.length*2];
+        for (int i=start;i<=end;i++){
+            d[i+1]=data[i];
+        }
+        data = d;
+        data[start]=element;
+    }
 
     public void addLast(E element) throws NullPointerException{
         if (element == null){
@@ -91,7 +102,7 @@ public class MyDeque<E>{
         return removed;
     }
     public E removeLast() throws NoSuchElementException{
-        if (data[end]==null){
+        if (end == -1 || data[end]==null){
             throw new NoSuchElementException("List Is Empty");
         }
         E removed = data[end];
@@ -112,7 +123,7 @@ public class MyDeque<E>{
         return data[start];
     }
     public E getLast() throws NoSuchElementException{
-        if (data[end]==null){
+        if (end == -1 || data[end]==null ){
             throw new NoSuchElementException("List Is Empty");
         }
         return data[end];
@@ -128,11 +139,11 @@ public class MyDeque<E>{
       MyDeque<Character> test = new MyDeque<Character>();
 
       String words = "abcdefghijk";
-
+      test.getFirst();
       for (int i=0;i<words.length();i++){
           test.addLast(words.charAt(i));
       }
-      //test.addLast('a');
+      //test.addFirst('a');
       //test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
