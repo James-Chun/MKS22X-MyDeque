@@ -7,13 +7,13 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
     public MyDeque(){     //default constuctor that makes new data of size 10 and sets start, end, and size to 0;
         data = (E[])new Object[10];
-        start=0;end=0;size=0;
+        start=0;end=-1;size=0;
     }
 
     @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity){    //custom constuctor that makes data of specified size and sets start, end, and size to 0 (cause technically there are no values in it yet)
         data = (E[])new Object[initialCapacity];
-        start=0;end=0;size=0;
+        start=0;end=-1;size=0;
     }
 
 
@@ -44,8 +44,8 @@ public class MyDeque<E>{
         if (end==data.length-1){        //In Nathan We Trust
           resize();
         }
-        data[end] = element;
         end++;
+        data[end] = element;
         size++;
     }
 
@@ -99,7 +99,7 @@ public class MyDeque<E>{
       String words = "abcdefghi";
 
       for (int i=0;i<words.length();i++){
-          test.addLast(words.charAt(i));
+          //test.addLast(words.charAt(i));
       }
       //test.addLast('a');
       //test.addLast('j');
