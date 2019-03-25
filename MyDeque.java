@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class MyDeque<E>{
     private E[] data;
@@ -40,14 +41,21 @@ public class MyDeque<E>{
         size++;
     }
 
-    public E removeFirst(){
+
+    public E removeFirst() throws NoSuchElementException{
+        if (data[start]==null){
+            throw new NoSuchElementException("List Is Empty");
+        }
         E removed = data[start];
         data[start]=null;
         start++;
         size--;
         return removed;
     }
-    public E removeLast(){
+    public E removeLast() throws NoSuchElementException{
+        if (data[end]==null){
+            throw new NoSuchElementException("List Is Empty");
+        }
         E removed = data[end];
         data[end]=null;
         end--;                      // REMOVE STILL REMOVES THE NULL AND MESSES UP THE START AND END ORDER
@@ -56,10 +64,16 @@ public class MyDeque<E>{
     }
 
 
-    public E getFirst(){
+    public E getFirst() throws NoSuchElementException{
+        if (data[start]==null){
+            throw new NoSuchElementException("List Is Empty");
+        }
         return data[start];
     }
-    public E getLast(){
+    public E getLast() throws NoSuchElementException{
+        if (data[end]==null){
+            throw new NoSuchElementException("List Is Empty");
+        }
         return data[end];
     }
 
@@ -74,6 +88,7 @@ public class MyDeque<E>{
     public static void main(String[] args){
       MyDeque<String> test = new MyDeque<String>();
 
+      
       test.removeFirst();
       test.removeLast();
       System.out.println(test);
