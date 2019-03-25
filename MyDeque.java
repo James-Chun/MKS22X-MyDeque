@@ -4,6 +4,8 @@ public class MyDeque<E>{
     private E[] data;
     private int size, start, end;
 
+//--------------------------------------------------------------------------------------------------------------------------
+
     @SuppressWarnings("unchecked")
     public MyDeque(){     //default constuctor that makes new data of size 10 and sets start, end, and size to 0;
         data = (E[])new Object[10];
@@ -29,6 +31,10 @@ public class MyDeque<E>{
         }
         return visual + "}";
     }
+
+
+//--------------------------------------------------------------------------------------------------------------------------
+
     /*
     public void addFirst(E element) throws new NullPointerException{
         if (element == null){
@@ -37,17 +43,26 @@ public class MyDeque<E>{
         size++;
     }*/
 
-    public void addLast(E element) throws NullPointerException{     //move start back?!?!?!?!?!!???!?!?!?!?!?!?!?!?!?!!?!?!?!?
+    public void addLast(E element) throws NullPointerException{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        if (end==data.length-1){        //In Nathan We Trust
+        if (end==data.length-1){
           resize();
         }
         end++;
         data[end] = element;
         size++;
     }
+
+    @SuppressWarnings("unchecked")
+    private void resize(){
+        E[] d = (E[])new Object[data.length*2];
+        data = d;
+    }
+
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 
     public E removeFirst() throws NoSuchElementException{
@@ -66,10 +81,13 @@ public class MyDeque<E>{
         }
         E removed = data[end];
         data[end]=null;
-        end--;                      // REMOVE STILL REMOVES THE NULL AND MESSES UP THE START AND END ORDER
-        size--;                     // ASDHHASUBETUBASOBCOUEBHTUOABOSFBUEBIWHEBVUDBVHIJBSYEBIAEB
+        end--;
+        size--;
         return removed;
     }
+
+
+//--------------------------------------------------------------------------------------------------------------------------
 
 
     public E getFirst() throws NoSuchElementException{
@@ -86,25 +104,24 @@ public class MyDeque<E>{
     }
 
 
-    @SuppressWarnings("unchecked")
-    private void resize(){
-      E[] d = (E[])new Object[data.length*2];
-      data = d;
-    }
+//--------------------------------------------------------------------------------------------------------------------------
+
+
 
 
     public static void main(String[] args){
       MyDeque<Character> test = new MyDeque<Character>();
 
-      String words = "abcdefghi";
+      String words = "abcdefghij";
 
       for (int i=0;i<words.length();i++){
-          //test.addLast(words.charAt(i));
+          test.addLast(words.charAt(i));
       }
       //test.addLast('a');
       //test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
       System.out.println(test);
+      System.out.println(test.size());
     }
 }
