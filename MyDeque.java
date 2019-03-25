@@ -23,10 +23,22 @@ public class MyDeque<E>{
       return size;
     }
 
+    public int sizeDebug(){
+      return data.length;
+    }
+
 
     public String toString(){
         String visual = "{ ";
-        for (int i=start; i<end; i++){
+        for (int i=start; i<=end; i++){
+          visual = visual + data[i] + " ";
+        }
+        return visual + "}";
+    }
+
+    public String toStringDebug(){
+        String visual = "{ ";
+        for (int i=start; i<data.length; i++){
           visual = visual + data[i] + " ";
         }
         return visual + "}";
@@ -58,6 +70,9 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
     private void resize(){
         E[] d = (E[])new Object[data.length*2];
+        for (int i=start;i<=end; i++){
+            d[i]=data[i];
+        }
         data = d;
     }
 
@@ -112,7 +127,7 @@ public class MyDeque<E>{
     public static void main(String[] args){
       MyDeque<Character> test = new MyDeque<Character>();
 
-      String words = "abcdefghij";
+      String words = "abcdefghijk";
 
       for (int i=0;i<words.length();i++){
           test.addLast(words.charAt(i));
@@ -123,5 +138,7 @@ public class MyDeque<E>{
       //test.removeLast();
       System.out.println(test);
       System.out.println(test.size());
+      //System.out.println(test.toStringDebug());
+      //System.out.println(test.sizeDebug());
     }
 }
