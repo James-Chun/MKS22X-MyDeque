@@ -5,19 +5,19 @@ public class MyDeque<E>{
     private int size, start, end;
 
     @SuppressWarnings("unchecked")
-    public MyDeque(){
+    public MyDeque(){     //default constuctor that makes new data of size 10 and sets start, end, and size to 0;
         data = (E[])new Object[10];
         start=0;end=0;size=0;
     }
 
     @SuppressWarnings("unchecked")
-    public MyDeque(int initialCapacity){
+    public MyDeque(int initialCapacity){    //custom constuctor that makes data of specified size and sets start, end, and size to 0 (cause technically there are no values in it yet)
         data = (E[])new Object[initialCapacity];
         start=0;end=0;size=0;
     }
 
 
-    public int size(){
+    public int size(){    //simply return size
       return size;
     }
 
@@ -29,10 +29,18 @@ public class MyDeque<E>{
         }
         return visual + "}";
     }
+    /*
+    public void addFirst(E element) throws new NullPointerException{
+        if (element == null){
+            throw new NullPointerException("Specified Element Cannot Be Null")
+        }
+        size++;
+    }*/
 
-    //public void addFirst(E element){size++;}
-
-    public void addLast(E element){     //move start back?!?!?!?!?!!???!?!?!?!?!?!?!?!?!?!!?!?!?!?
+    public void addLast(E element) throws NullPointerException{     //move start back?!?!?!?!?!!???!?!?!?!?!?!?!?!?!?!!?!?!?!?
+        if (element == null){
+            throw new NullPointerException("Specified Element Cannot Be Null");
+        }
         if (end==data.length-1){        //In Nathan We Trust
           resize();
         }
@@ -88,7 +96,7 @@ public class MyDeque<E>{
     public static void main(String[] args){
       MyDeque<String> test = new MyDeque<String>();
 
-      
+      test.addLast(null);
       test.removeFirst();
       test.removeLast();
       System.out.println(test);
