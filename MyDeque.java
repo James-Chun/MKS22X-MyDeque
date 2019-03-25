@@ -23,8 +23,8 @@ public class MyDeque<E>{
 
 
     public String toString(){
-        String visual = "{";
-        for (int i=start; i<=end; i++){
+        String visual = "{ ";
+        for (int i=start; i<end; i++){
           visual = visual + data[i] + " ";
         }
         return visual + "}";
@@ -44,8 +44,8 @@ public class MyDeque<E>{
         if (end==data.length-1){        //In Nathan We Trust
           resize();
         }
-        end++;
         data[end] = element;
+        end++;
         size++;
     }
 
@@ -94,11 +94,17 @@ public class MyDeque<E>{
 
 
     public static void main(String[] args){
-      MyDeque<String> test = new MyDeque<String>();
+      MyDeque<Character> test = new MyDeque<Character>();
 
-      test.addLast(null);
-      test.removeFirst();
-      test.removeLast();
+      String words = "abcdefghi";
+
+      for (int i=0;i<words.length();i++){
+          test.addLast(words.charAt(i));
+      }
+      //test.addLast('a');
+      //test.addLast('j');
+      //test.removeFirst();
+      //test.removeLast();
       System.out.println(test);
     }
 }
