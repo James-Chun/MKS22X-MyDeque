@@ -59,11 +59,11 @@ public class MyDeque<E>{
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
         E[] d = (E[])new Object[data.length*2];
+        d[start]=element;
         for (int i=start;i<=end;i++){
             d[i+1]=data[i];
         }
         data = d;
-        data[start]=element;
     }
 
     public void addLast(E element) throws NullPointerException{
@@ -139,16 +139,16 @@ public class MyDeque<E>{
       MyDeque<Character> test = new MyDeque<Character>();
 
       String words = "abcdefghijk";
-      test.getFirst();
+      //test.getFirst();
       for (int i=0;i<words.length();i++){
           test.addLast(words.charAt(i));
       }
-      //test.addFirst('a');
-      //test.addLast('j');
+      test.addFirst('p');
+      test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
       System.out.println(test);
-      System.out.println(test.size());
+      //System.out.println(test.size());
       //System.out.println(test.toStringDebug());
       //System.out.println(test.sizeDebug());
     }
