@@ -32,7 +32,7 @@ public class MyDeque<E>{
         String visual = "{";
         for (int i=start; i<=end; i++){
           if (i<0){
-              visual = visual + data[data.length+start];
+              visual = visual + data[i+data.length];
           }
           else{
               visual = visual + data[i];
@@ -46,7 +46,7 @@ public class MyDeque<E>{
 
     public String toStringDebug(){
         String visual = "{";
-        for (int i=start; i<data.length; i++){
+        for (int i=0; i<data.length; i++){
           if (i<0){
               visual = visual + data[data.length+start];
           }
@@ -68,15 +68,16 @@ public class MyDeque<E>{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        start--;
-        if (start<0){
-            if ((start*-1>=data.length) || data[data.length+start]!=null){
+        if (start-1<0){
+            if (size==data.length){
                 resize();
             }
+            start--;
             data[data.length+start]=element;
             size++;
         }
         else{
+          start--;
             data[start]=element;
             size++;
         }
@@ -86,10 +87,10 @@ public class MyDeque<E>{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        end++;
-        if (end==data.length || data[end]!=null){
+        if (size==data.length){
           resize();
         }
+        end++;
         data[end] = element;
         size++;
     }
@@ -97,7 +98,7 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
     private void resize(){
         E[] d = (E[])new Object[data.length*2];
-        for (int i=start;i<end; i++){
+        for (int i=start;i<=end; i++){
             if (i<0){
                 d[d.length+i]=data[data.length+i];
             }
@@ -148,6 +149,7 @@ public class MyDeque<E>{
         if (data[start]==null){
             throw new NoSuchElementException("List Is Empty");
         }
+        if (start<0)return data[start+data.length];
         return data[start];
     }
     public E getLast() throws NoSuchElementException{
@@ -164,7 +166,7 @@ public class MyDeque<E>{
 
 
     public static void main(String[] args){
-      MyDeque<Character> test = new MyDeque<Character>();
+      MyDeque<Integer> test = new MyDeque<Integer>();
 
       String words = "abcdefghijk";
       //test.getFirst();
@@ -175,16 +177,18 @@ public class MyDeque<E>{
       for (int i=0;i<words.length();i++){
           test.addLast(words.charAt(i));
       }*/
-      for (int i =0;i<11;i++){
-          test.addFirst('p');
+      for (int i =0;i<499;i++){
+          test.addFirst(i);
+          //test.addLast(i);
+          //System.out.println(test.toStringDebug());
       }
 
-      //test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
       System.out.println(test);
+      //System.out.println(test.toStringDebug());
       System.out.println(test.size());
-      System.out.println(test.toStringDebug());
+      System.out.println(test.getFirst());
       //System.out.println(test.sizeDebug());
     }
 }
