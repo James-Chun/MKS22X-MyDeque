@@ -31,7 +31,12 @@ public class MyDeque<E>{
     public String toString(){
         String visual = "{";
         for (int i=start; i<=end; i++){
-          visual = visual + data[i];
+          if (i<0){
+              visual = visual + data[data.length+start];
+          }
+          else{
+              visual = visual + data[i];
+          }
           if (start<end){
             visual+=" ";
           }
@@ -47,7 +52,7 @@ public class MyDeque<E>{
           }
           else{
               visual = visual + data[i];
-            }
+          }
           if (start<data.length-1){
               visual+=" ";
           }
@@ -93,7 +98,12 @@ public class MyDeque<E>{
     private void resize(){
         E[] d = (E[])new Object[data.length*2];
         for (int i=start;i<end; i++){
-            d[i]=data[i];
+            if (i<0){
+                d[d.length+i]=data[data.length+i];
+            }
+            else{
+                d[i]=data[i];
+            }
         }
         data = d;
     }
@@ -105,6 +115,13 @@ public class MyDeque<E>{
     public E removeFirst() throws NoSuchElementException{
         if (data[start]==null){
             throw new NoSuchElementException("List Is Empty");
+        }
+        if (start<0){
+            E removed = data[data.length+start];
+            data[data.length+start]=null;
+            start++;
+            size--;
+            return removed;
         }
         E removed = data[start];
         data[start]=null;
@@ -155,12 +172,15 @@ public class MyDeque<E>{
           test.addLast(words.charAt(i));
       }
       test.addFirst('p');
+      for (int i=0;i<words.length();i++){
+          test.addLast(words.charAt(i));
+      }
       //test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
-      System.out.println(test.toStringDebug());
+      System.out.println(test);
       System.out.println(test.size());
-      //System.out.println(test.toStringDebug());
+      System.out.println(test.toStringDebug());
       //System.out.println(test.sizeDebug());
     }
 }
