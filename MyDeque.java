@@ -70,7 +70,7 @@ public class MyDeque<E>{
         }
         start--;
         if (start<0){
-            if (data[data.length+start]!=null){
+            if ((start*-1>=data.length) || data[data.length+start]!=null){
                 resize();
             }
             data[data.length+start]=element;
@@ -168,13 +168,17 @@ public class MyDeque<E>{
 
       String words = "abcdefghijk";
       //test.getFirst();
+      /*
       for (int i=0;i<words.length();i++){
           test.addLast(words.charAt(i));
       }
-      test.addFirst('p');
       for (int i=0;i<words.length();i++){
           test.addLast(words.charAt(i));
+      }*/
+      for (int i =0;i<11;i++){
+          test.addFirst('p');
       }
+
       //test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
