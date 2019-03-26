@@ -69,7 +69,7 @@ public class MyDeque<E>{
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
         if (start-1<0){
-            if (size==data.length){
+            if (start*-1==data.length-1 || size==data.length){
                 resize();
             }
             start--;
