@@ -182,11 +182,14 @@ public class MyDeque<E>{
           //test.addLast(i);
           //System.out.println(test.toStringDebug());
       }
+      for (int i=500;i<550;i++){
+        test.addLast(i);
+      }
 
       //test.removeFirst();
       //test.removeLast();
       System.out.println(test);
-      //System.out.println(test.toStringDebug());
+      System.out.println(test.toStringDebug());
       System.out.println(test.size());
       System.out.println(test.getFirst());
       //System.out.println(test.sizeDebug());
