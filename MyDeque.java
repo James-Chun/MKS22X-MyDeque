@@ -114,15 +114,18 @@ public class MyDeque<E>{
 
 
     public E removeFirst() throws NoSuchElementException{
-        if (data[start]==null){
-            throw new NoSuchElementException("List Is Empty");
-        }
         if (start<0){
+            if (data[start+data.length]==null){
+                throw new NoSuchElementException("List Is Empty");
+            }
             E removed = data[data.length+start];
             data[data.length+start]=null;
             start++;
             size--;
             return removed;
+        }
+        if (data[start]==null){
+            throw new NoSuchElementException("List Is Empty");
         }
         E removed = data[start];
         data[start]=null;
@@ -186,12 +189,13 @@ public class MyDeque<E>{
         test.addLast(i);
       }
 
-      //test.removeFirst();
-      //test.removeLast();
+      test.removeFirst();
+      test.removeLast();
       System.out.println(test);
-      System.out.println(test.toStringDebug());
+      // System.out.println(test.toStringDebug());
       System.out.println(test.size());
       System.out.println(test.getFirst());
+      System.out.println(test.getLast());
       //System.out.println(test.sizeDebug());
     }
 }
