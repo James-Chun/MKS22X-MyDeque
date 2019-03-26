@@ -91,7 +91,12 @@ public class MyDeque<E>{
           resize();
         }
         end++;
-        data[end] = element;
+        if (end<0){
+          data[data.length+end]=element;
+        }
+        else{
+          data[end] = element;
+        }
         size++;
     }
 
@@ -134,7 +139,19 @@ public class MyDeque<E>{
         return removed;
     }
     public E removeLast() throws NoSuchElementException{
-        if (end == -1 || data[end]==null){
+        if (end <0){
+            if (data[end+data.length]==null){
+                throw new NoSuchElementException("List Is Empty");
+            }
+            E removed = data[end+data.length];
+            data[end+data.length]=null;
+            end--;
+            size--;
+            return removed;
+        }
+
+
+        if (data[end]==null){
             throw new NoSuchElementException("List Is Empty");
         }
         E removed = data[end];
@@ -149,15 +166,27 @@ public class MyDeque<E>{
 
 
     public E getFirst() throws NoSuchElementException{
-        if (data[start]==null){
-            throw new NoSuchElementException("List Is Empty");
+        if (start<0){
+            if (data[start+data.length]==null){
+                throw new NoSuchElementException("List Is Empty : 1");
+            }
+            return data[start+data.length];
         }
-        if (start<0)return data[start+data.length];
+        if (data[start]==null){
+            throw new NoSuchElementException("List Is Empty: 1");
+        }
         return data[start];
     }
+
     public E getLast() throws NoSuchElementException{
-        if (end == -1 || data[end]==null ){
-            throw new NoSuchElementException("List Is Empty");
+        if (end <0){
+            if (data[data.length+end]==null){
+                throw new NoSuchElementException("List Is Empty : 2");
+            }
+            return data[end+data.length];
+        }
+        if (data[end]==null ){
+            throw new NoSuchElementException("List Is Empty : 2");
         }
         return data[end];
     }
@@ -185,14 +214,15 @@ public class MyDeque<E>{
           //test.addLast(i);
           //System.out.println(test.toStringDebug());
       }
+      /*
       for (int i=500;i<550;i++){
         test.addLast(i);
-      }
+      }*/
 
       test.removeFirst();
-      test.removeLast();
-      System.out.println(test);
-      // System.out.println(test.toStringDebug());
+      //test.removeLast();
+      //System.out.println(test);
+      System.out.println(test.toStringDebug());
       System.out.println(test.size());
       System.out.println(test.getFirst());
       System.out.println(test.getLast());
