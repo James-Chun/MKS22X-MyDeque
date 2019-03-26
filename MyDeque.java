@@ -5,12 +5,19 @@ public class MyDeque<E>{
     private int size, start, end;
 
 //--------------------------------------------------------------------------------------------------------------------------
+//start and end may be negative meaning they're relative to the end of data.
+// start = -1 means start value is at the end of data, start = -2 means start value is at 2 to last position of data.
+// the same applies for end, its just end will always be ahead of start.
+
+
 
     @SuppressWarnings("unchecked")
     public MyDeque(){     //default constuctor that makes new data of size 10 and sets start, end, and size to 0;
         data = (E[])new Object[10];
         start=0;end=-1;size=0;
     }
+    //end is -1 because if start == end then that would indicate data is not empty
+    //once you start adding or removing then start and end will align properly (remember exceptions are there to catch bad scenarios)
 
     @SuppressWarnings("unchecked")
     public MyDeque(int initialCapacity){    //custom constuctor that makes data of specified size and sets start, end, and size to 0 (cause technically there are no values in it yet)
@@ -23,15 +30,15 @@ public class MyDeque<E>{
       return size;
     }
 
-    public int sizeDebug(){
+    public int sizeDebug(){   //return the length of the entire data
       return data.length;
     }
 
 
-    public String toString(){
+    public String toString(){   //print data as it should be viewed
         String visual = "{";
         for (int i=start; i<=end; i++){
-          if (i<0){
+          if (i<0){                           //start and end may be less than 0 so check for that
               visual = visual + data[i+data.length];
           }
           else{
@@ -44,7 +51,7 @@ public class MyDeque<E>{
         return visual + "}";
     }
 
-    public String toStringDebug(){
+    public String toStringDebug(){    //print the raw state of data
         String visual = "{";
         for (int i=0; i<data.length; i++){
           if (i<0){
@@ -63,21 +70,21 @@ public class MyDeque<E>{
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-  @SuppressWarnings("unchecked")
+
     public void addFirst(E element) throws NullPointerException{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
         if (start-1<0){
-            if (start*-1==data.length-1 || size==data.length){
+            if (start*-1==data.length-1 || size==data.length){//either start goes back so much it reaches index 0 again or data is filled
                 resize();
             }
             start--;
             data[data.length+start]=element;
             size++;
         }
-        else{
-          start--;
+        else{ //if start is not going to be negative then you have some space in the front of data to fill in (hence no resize)
+            start--;
             data[start]=element;
             size++;
         }
@@ -87,12 +94,12 @@ public class MyDeque<E>{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        if (end ==data.length-1 || size==data.length){
+        if (end ==data.length-1 || size==data.length){ //end could still reach the last index of data with size < data.length because of where start and end are positioned
           resize();
         }
         end++;
         if (end<0){
-          data[data.length+end]=element;
+          data[data.length+end]=element;    //end could be less than 0 if you constantly removeLast()
         }
         else{
           data[end] = element;
@@ -101,10 +108,10 @@ public class MyDeque<E>{
     }
 
     @SuppressWarnings("unchecked")
-    private void resize(){
+    private void resize(){        //resize data (relies on the current positions of start and end before you indent to add)
         E[] d = (E[])new Object[data.length*2];
         for (int i=start;i<=end; i++){
-            if (i<0){
+            if (i<0){             //just like toString the start and end may be both less than 0 so check
                 d[d.length+i]=data[data.length+i];
             }
             else{
@@ -116,7 +123,7 @@ public class MyDeque<E>{
 
 
 //--------------------------------------------------------------------------------------------------------------------------
-
+//all the methods from now on have to account for when start or end are going to be negative
 
     public E removeFirst() throws NoSuchElementException{
         if (start<0){
