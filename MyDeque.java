@@ -42,9 +42,14 @@ public class MyDeque<E>{
     public String toStringDebug(){
         String visual = "{";
         for (int i=start; i<data.length; i++){
-          visual = visual + data[i];
+          if (i<0){
+              visual = visual + data[data.length+start];
+          }
+          else{
+              visual = visual + data[i];
+            }
           if (start<data.length-1){
-            visual+=" ";
+              visual+=" ";
           }
         }
         return visual + "}";
@@ -58,22 +63,28 @@ public class MyDeque<E>{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        E[] d = (E[])new Object[data.length*2];
-        d[start]=element;
-        for (int i=start;i<=end;i++){
-            d[i+1]=data[i];
+        start--;
+        if (start<0){
+            if (data[data.length+start]!=null){
+                resize();
+            }
+            data[data.length+start]=element;
+            size++;
         }
-        data = d;
+        else{
+            data[start]=element;
+            size++;
+        }
     }
 
     public void addLast(E element) throws NullPointerException{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        if (end==data.length-1){
+        end++;
+        if (end==data.length || data[end]!=null){
           resize();
         }
-        end++;
         data[end] = element;
         size++;
     }
@@ -81,7 +92,7 @@ public class MyDeque<E>{
     @SuppressWarnings("unchecked")
     private void resize(){
         E[] d = (E[])new Object[data.length*2];
-        for (int i=start;i<=end; i++){
+        for (int i=start;i<end; i++){
             d[i]=data[i];
         }
         data = d;
@@ -144,11 +155,11 @@ public class MyDeque<E>{
           test.addLast(words.charAt(i));
       }
       test.addFirst('p');
-      test.addLast('j');
+      //test.addLast('j');
       //test.removeFirst();
       //test.removeLast();
-      System.out.println(test);
-      //System.out.println(test.size());
+      System.out.println(test.toStringDebug());
+      System.out.println(test.size());
       //System.out.println(test.toStringDebug());
       //System.out.println(test.sizeDebug());
     }
