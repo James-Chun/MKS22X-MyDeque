@@ -87,7 +87,7 @@ public class MyDeque<E>{
         if (element == null){
             throw new NullPointerException("Specified Element Cannot Be Null");
         }
-        if (size==data.length){
+        if (end ==data.length-1 || size==data.length){
           resize();
         }
         end++;
@@ -210,8 +210,9 @@ public class MyDeque<E>{
           test.addLast(words.charAt(i));
       }*/
       for (int i =0;i<499;i++){
-          test.addFirst(i);
-          //test.addLast(i);
+          //test.addFirst(i);
+          test.addLast(i);
+          test.removeFirst();
           //System.out.println(test.toStringDebug());
       }
       /*
@@ -219,7 +220,6 @@ public class MyDeque<E>{
         test.addLast(i);
       }*/
 
-      test.removeFirst();
       //test.removeLast();
       //System.out.println(test);
       System.out.println(test.toStringDebug());
