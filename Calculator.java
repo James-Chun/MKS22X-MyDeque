@@ -11,7 +11,6 @@ public class Calculator{
 
       String[] valuesToBeEvaluated = s.split(" ");
 
-      double temp = 0.0;
       for (int i=0;i<valuesToBeEvaluated.length;i++){//if int add to deque if not take last two ints and do operations and then remove add accordingly
 
           try{
@@ -19,34 +18,26 @@ public class Calculator{
           }catch(Exception NumberFormatException){}
 
 
-          if (valuesToBeEvaluated[i] == "+"){
-              temp = valuesBeingEvaluated.removeFirst() + valuesBeingEvaluated.removeFirst();
-              valuesBeingEvaluated.addLast( temp );
-
-                        System.out.println(valuesToBeEvaluated[i]);
+          if (valuesToBeEvaluated[i].equals("+")){
+              valuesBeingEvaluated.addLast( valuesBeingEvaluated.removeFirst() + valuesBeingEvaluated.removeFirst() );
           }
-          else if (valuesToBeEvaluated[i] == "-"){
+          else if (valuesToBeEvaluated[i].equals("-")){
               valuesBeingEvaluated.addLast( valuesBeingEvaluated.removeFirst() - valuesBeingEvaluated.removeFirst() );
-
-                        System.out.println(valuesToBeEvaluated[i]);
           }
-          else if (valuesToBeEvaluated[i] == "*"){
+          else if (valuesToBeEvaluated[i].equals("*")){
               valuesBeingEvaluated.addLast( valuesBeingEvaluated.removeFirst() * valuesBeingEvaluated.removeFirst() );
-                        System.out.println(valuesToBeEvaluated[i]);
           }
-          else if (valuesToBeEvaluated[i] == "/"){
-            temp = valuesBeingEvaluated.removeFirst() / valuesBeingEvaluated.removeFirst();
-            valuesBeingEvaluated.addLast( temp );
-                      System.out.println(valuesToBeEvaluated[i]);
+          else if (valuesToBeEvaluated[i].equals("/")){
+              valuesBeingEvaluated.addLast( valuesBeingEvaluated.removeFirst() / valuesBeingEvaluated.removeFirst() );
           }
-          else if (valuesToBeEvaluated[i] == "%"){
+          else if (valuesToBeEvaluated[i].equals("%")){
               valuesBeingEvaluated.addLast( valuesBeingEvaluated.removeFirst() % valuesBeingEvaluated.removeFirst() );
-                        System.out.println(valuesToBeEvaluated[i]);
           }
 
+          System.out.println(valuesToBeEvaluated[i]);
 
       }
-      return valuesBeingEvaluated.getLast();
+      return valuesBeingEvaluated.getFirst();
     }
 
 /*
@@ -65,7 +56,7 @@ public class Calculator{
     public static void main(String[] args){
       //eval("10 2 3 4 5 + * - -");
       //System.out.println(visual());
-      System.out.println( eval("1 2 +") );
+      System.out.println( eval("1 2 *") );
       //System.out.println( "" + 1.0 + 2.0 );
 
       /*MyDeque<Double> v = new MyDeque<>();
